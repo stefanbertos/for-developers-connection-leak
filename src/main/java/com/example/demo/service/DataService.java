@@ -66,6 +66,7 @@ public class DataService {
     }
 
     private void batchInsert(List<Payment> list) throws SQLException {
+        //you would most probably want to use try with resources
         Connection connection = dataSource.getConnection();
         String insertEmployeeSQL = "INSERT /*+append */ INTO payment(step, type, amount, nameorig, oldbalanceorg, newbalanceorig, namedest, oldbalancedest, newbalancedest, isfraud, isflaggedfraud) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
