@@ -87,6 +87,6 @@ public class DataService {
 
         employeeStmt.executeBatch();
         employeeStmt.close();
-       // connection.close();
+        connection.close();
     }
 }
