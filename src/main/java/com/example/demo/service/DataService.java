@@ -34,21 +34,21 @@ public class DataService {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             try (CSVReader csvReader = new CSVReader(reader); ) {
                 csvReader.skip(1);
-                String[] record;
-                while ((record = csvReader.readNext()) != null) {
+                String[] line;
+                while ((line = csvReader.readNext()) != null) {
                     rowIndex++;
                     Payment payment = new Payment();
-                    payment.setStep(Integer.parseInt(record[0]));
-                    payment.setType(record[1]);
-                    payment.setAmount(Double.valueOf(record[2]));
-                    payment.setNameOrig(record[3]);
-                    payment.setOldBalanceOrg(Double.valueOf(record[4]));
-                    payment.setNewBalanceOrig(Double.valueOf(record[5]));
-                    payment.setNameDest(record[6]);
-                    payment.setOldBalanceDest(Double.valueOf(record[7]));
-                    payment.setNewBalanceDest(Double.valueOf(record[8]));
-                    payment.setIsFraud(Integer.parseInt(record[9]));
-                    payment.setIsFlaggedFraud(Integer.parseInt(record[10]));
+                    payment.setStep(Integer.parseInt(line[0]));
+                    payment.setType(line[1]);
+                    payment.setAmount(Double.valueOf(line[2]));
+                    payment.setNameOrig(line[3]);
+                    payment.setOldBalanceOrg(Double.valueOf(line[4]));
+                    payment.setNewBalanceOrig(Double.valueOf(line[5]));
+                    payment.setNameDest(line[6]);
+                    payment.setOldBalanceDest(Double.valueOf(line[7]));
+                    payment.setNewBalanceDest(Double.valueOf(line[8]));
+                    payment.setIsFraud(Integer.parseInt(line[9]));
+                    payment.setIsFlaggedFraud(Integer.parseInt(line[10]));
                     list.add(payment);
 
                     if (rowIndex % 10000 == 0) {
@@ -57,7 +57,7 @@ public class DataService {
                         list.clear();
                     }
                 }
-                if (list.size() != 0) {
+                if (!list.isEmpty()) {
                     batchInsert(list);
                 }
 
